@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    input{
+      width:150px;
+      height:30px;
+      font-size:20px;
+      outline: none;
+      vertical-align:middle;
+    }
+    button{
+      height:30px;
+      cursor:pointer;
+      vertical-align:middle;
+    }
+    div{
+      display:inline-block;
+      width:110px;
+      height:40px;
+      line-height: 40px;
+      cursor:pointer;
+      text-align: center;
+      background-color: lightgray;
+      vertical-align:middle;
+    }
+    span{
+      font: 12px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+<input type="text">
+<div></div>
+<button>提交<tton>
+
+<script>
+  var str;
+  var input = document.querySelector("input");
+  var btn = document.querySelector("button");
+  var div = document.querySelector('div');
+
+  // 验证码字符
+  var chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+
+  // 生成m-n的数字
+  function getRandom(m,n){
+    return Math.floor(Math.random()*(n-m+1)+m);
+  }
+  //  验证码禁用文本选中
+  div.addEventListener("selectstart",function(e){
+    e.preventDefault();
+  })
+  // 生成随机验证码
+  function run(){
+    str = '';
+    // 若验证码存在，则清除
+    while(div.hasChildNodes()){
+      div.removeChild(div.firstChild);
+    }
+    // 生成6位数的验证码
+    for(var i=0;i<6;i++){
+      var span = document.createElement('span');
+      span.innerHTML = chars[getRandom(0,chars.length-1)]; //生成随机数，并取得对应值
+      span.style.display = "inline-block";
+      span.style.fontSize = getRandom(16,24)+"px";  //随机字体大小
+      span.style.color = 'rgb('+getRandom(0,200)+','+getRandom(0,200)+','+getRandom(0,200)+')';  //随机字体颜色
+      span.style.transform = 'translate('+getRandom(-5,5)+'px,'+getRandom(-5,5)+'px) rotate('+getRandom(-20,20)+'deg)'; //随机平移旋转
+      str += span.innerHTML; //将str拼接，和input值对比
+      div.appendChild(span);
+    }
+  }
+  run(); //进入页面生成验证码
+  div.addEventListener("click",run);
+
+  btn.addEventListener("click",function(){
+    if(input.value.toLowerCase() == str.toLowerCase()){   //转化为小写进行比较
+      alert("验证通过！");
+    }else{
+      alert("验证失败！");
+    }
+    run();
+    input.value = ""; //清空输入框
+  })
+
+</script>
+</html>

@@ -20,13 +20,6 @@ public class User {
     public User() {
     }
 
-    public User(Integer userId, String userName, String userPassword, String email) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userPassword = userPassword;
-        this.email = email;
-    }
-
     public User(String userName, String userPassword, String email) {
         this.userName = userName;
         this.userPassword = userPassword;

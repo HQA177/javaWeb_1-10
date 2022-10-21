@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="javaWeb_1-10:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/javaWeb_1_10_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="javaWeb_1-10/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="javaWeb_1-10" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-fileupload-1.4" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

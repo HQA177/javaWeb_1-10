@@ -1,8 +1,14 @@
 package com.buba.controller;
 
+import com.buba.entity.User;
+import com.buba.service.UserService;
+import com.buba.service.impl.UserServiceImpl;
+import org.springframework.util.DigestUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -11,47 +17,30 @@ import java.io.IOException;
  * Time:11:30
  */
 public class JumpHtmlServlet extends ViewBaseServlet {
-
+    private UserService userService = new UserServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 请求转发跳转到 /WEB-INF/view/ 路径.html
-
-        // 判断跳转路径
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
         // 登录
-        if(req.getParameter("jump").equals("login")){
+        if(req.getParameter("user").equals("login")){
             processTemplate("/pages/user/login",req,resp);
         }
-        // 登录成功
-        if(req.getParameter("jump").equals("login_success")){
-            processTemplate("/pages/user/login_success",req,resp);
-        }
         // 注册
-        if(req.getParameter("jump").equals("regist")){
-            processTemplate("/pages/user/regist",req,resp);
-        }
-        // 注册成功
-        if(req.getParameter("jump").equals("regist_success")){
-            processTemplate("/pages/user/regist_success",req,resp);
+        if(req.getParameter("user").equals("register")){
+            processTemplate("/pages/user/register",req,resp);
         }
         // 购物车
-        if(req.getParameter("jump").equals("cart")){
+        if(req.getParameter("user").equals("cart")){
             processTemplate("/pages/cart/cart",req,resp);
         }
-        // 图书管理
-        if(req.getParameter("jump").equals("book_manager")){
-            processTemplate("/pages/manager/book_manager",req,resp);
-        }
         // 图书订单管理
-        if(req.getParameter("jump").equals("order_manager")){
+        if(req.getParameter("user").equals("order_manager")){
             processTemplate("/pages/manager/order_manager",req,resp);
         }
-        // 添加图书
-        if(req.getParameter("jump").equals("book_edit")){
-            processTemplate("/pages/manager/book_edit",req,resp);
-        }
         // 我的订单
-        if(req.getParameter("jump").equals("order")){
+        if(req.getParameter("user").equals("order")){
             processTemplate("/pages/order/order",req,resp);
         }
-    }
+}
 }

@@ -8,7 +8,7 @@ public class TestJdbc {
         //创建JDBCTemplate对象
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDateSource());
         //3.调用方法
-        String sql = "select sum(sal) from emp";
+        String sql = "select count(*) from t_book";
         Double count = template.queryForObject(sql, Double.class);
         System.out.println(count);
     }
