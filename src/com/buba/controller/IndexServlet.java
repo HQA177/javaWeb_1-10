@@ -25,8 +25,6 @@ public class IndexServlet extends ViewBaseServlet {
         HttpSession session = req.getSession();
         String min = req.getParameter("min");
         String max = req.getParameter("max");
-        System.out.println("开始min："+min);
-        System.out.println("开始max："+max);
         double maxPrice = bookService.maxPrice();
         if (min != null && max != null){
             session.setAttribute("min",min);
@@ -50,7 +48,6 @@ public class IndexServlet extends ViewBaseServlet {
 
         // 总记录条数
         int bookCount = bookService.getBookCount(min,max);
-        System.out.println("总记录条数"+bookCount);
 //        int b = (int) bookCount;
         // 总页数
         int pageCount = (bookCount+10-1)/10;

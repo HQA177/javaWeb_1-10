@@ -22,7 +22,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int getOrderCount() {
-        return orderDao.getOrderCount();
+    public int getOrderCount(Integer id) {
+        return orderDao.getOrderCount(id);
+    }
+
+    @Override
+    public List<Order> queryAllOrder() {
+        return orderDao.queryAllOrder();
+    }
+
+    @Override
+    public int queryOrderId(String num) {
+        return orderDao.queryOrderId(num);
     }
 }

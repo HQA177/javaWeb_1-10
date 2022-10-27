@@ -58,7 +58,6 @@ public class CartServlet extends ViewBaseServlet{
     // 删除购物车图书项
     public void delCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        System.out.println(id);
         int i = cartItemService.delCart(Integer.parseInt(id));
         resp.sendRedirect("/jumpHtml?jump=cart");
     }
@@ -66,7 +65,6 @@ public class CartServlet extends ViewBaseServlet{
     // 清空购物车图书项
     public void clearCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        System.out.println(id);
         int i = cartItemService.clearCart(Integer.parseInt(id));
         resp.sendRedirect("/jumpHtml?jump=cart");
     }

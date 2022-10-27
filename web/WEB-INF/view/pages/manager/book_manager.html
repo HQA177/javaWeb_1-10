@@ -8,7 +8,6 @@
     <link rel="stylesheet" th:href="@{static/css/common.css}" />
     <link rel="stylesheet" th:href="@{static/css/cart.css}" />
     <link rel="stylesheet" th:href="@{static/css/bookManger.css}" />
-    <script th:src="@{static/script/book_manager.js}"></script>
   </head>
   <body>
     <div class="header">
@@ -21,7 +20,7 @@
         </div>
         <div class="header-right">
           <a href="#" class="order">图书管理</a>
-          <a th:href="@{jumpHtml(jump='order_manager')}" class="destory">订单管理</a>
+          <a th:href="@{orderHtml(order='queryAllOrder')}" class="destory">订单管理</a>
           <a th:href="@{index}" class="gohome">返回商城</a>
         </div>
       </div>
@@ -122,4 +121,5 @@
       </div>
     </div>
   </body>
+  <script th:src="@{static/script/book_manager.js}"></script>
 </html>

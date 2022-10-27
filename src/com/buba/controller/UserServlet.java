@@ -51,10 +51,7 @@ public class UserServlet extends ViewBaseServlet{
         String password = req.getParameter("password");
 
          //第一种登录方式
-        System.out.println("用户名："+username);
         int i = userService.login(username,(DigestUtils.md5DigestAsHex((password).getBytes())));
-        System.out.println("密码："+password);
-        System.out.println(i);
         if (i == 1){
             User user = userService.loginPro(username,(DigestUtils.md5DigestAsHex((password).getBytes())));
             HttpSession session = req.getSession();

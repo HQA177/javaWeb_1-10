@@ -24,9 +24,23 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public int getOrderCount() {
-        String sql = "select count(*) from t_order";
-        int date = jdbc.queryForObject(sql,Integer.class);
+    public int getOrderCount(Integer id) {
+        String sql = "select count(*) from t_order where user_id = ?";
+        int date = jdbc.queryForObject(sql,Integer.class,id);
         return date;
+    }
+
+    @Override
+    public List<Order> queryAllOrder() {
+        String sql = "select * from t_order";
+        List<Order> list = jdbc.query(sql,new BeanPropertyRowMapper<>(Order.class));
+        return list;
+    }
+
+    @Override
+    public int queryOrderId(String num) {
+        String sql = "select order_id from t_order where order_number = ?";
+        Integer i = jdbc.queryForObject(sql, Integer.class, num);
+        return i;
     }
 }

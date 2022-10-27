@@ -16,6 +16,7 @@ btn2.onclick = function (){
         page(val)
     }else {
         alert('没有此页面');
+        tz.value = " ";
     }
 }
 

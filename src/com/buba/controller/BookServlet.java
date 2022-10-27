@@ -63,16 +63,13 @@ public class BookServlet extends ViewBaseServlet{
     // 后台管理页面删除图书列表
     public void delBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        System.out.println("前"+id);
         int i = bookService.delBook(Integer.parseInt(id));
-        System.out.println("后"+i);
 
         Double aDouble = bookService.maxPrice();
         String pageNo = req.getParameter("pageNo");
 
 
         List<Book> list = bookService.books(0,(int)(aDouble +1),Integer.parseInt(pageNo));
-        System.out.println(list);
         if (list.isEmpty()){
             resp.sendRedirect("bookHtml?user=book_manager&pageNo="+(Integer.valueOf(pageNo)-1));
         }else {
@@ -126,7 +123,6 @@ public class BookServlet extends ViewBaseServlet{
                 String imgtype = fileItem.getName().substring(fileItem.getName().lastIndexOf("."));
                 // 给文件重新命名防止重复
                 String imgName = UUID.randomUUID() + imgtype;
-                System.out.println();
                 String path="E:\\2110A\\javaWeb_1-10\\web\\static\\uploads";
                 // 将上传的文件保存到服务器
                 fileItem.write(new File(path, imgName));
@@ -141,7 +137,6 @@ public class BookServlet extends ViewBaseServlet{
                 book.setAuthor(items.get(3).getString("UTF-8"));
                 book.setSales(Integer.valueOf(items.get(4).getString("UTF-8")));
                 book.setStock(Integer.valueOf(items.get(5).getString("UTF-8")));
-                System.out.println(book.toString());
                 bookService.addBook(book);
 
                 // 将参数覆盖到会话域,以便修改界面使用

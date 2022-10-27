@@ -52,7 +52,7 @@ btn2.onclick = function (){
 
 // 加入购物车请求
 function addCart(bookId){
-    window.location.href='/cartHtml?cart=addCart&bookId=' +bookId;
+    window.location.href='cartHtml?cart=addCart&bookId=' +bookId;
 }
 
 // 获取当前li(页码)

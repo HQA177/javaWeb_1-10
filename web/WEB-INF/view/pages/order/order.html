@@ -9,7 +9,6 @@
     <link rel="stylesheet" th:href="@{static/css/cart.css}" />
     <link rel="stylesheet" th:href="@{static/css/bookManger.css}" />
     <link rel="stylesheet" th:href="@{static/css/orderManger.css}" />
-    <script th:src="@{static/script/order.js}"></script>
   </head>
   <body>
     <div class="header">
@@ -21,7 +20,7 @@
           <h1>我的订单</h1>
         </div>
         <div class="header-right">
-          <h3>欢迎<span>会员</span>光临Deer书城</h3>
+          <h3>欢迎<span th:text="${session.username}">会员</span>光临Deer书城</h3>
 <!--          <div class="order"><a th:href="@{jumpHtml(jump='order')}">我的订单</a></div>-->
           <div class="destory"><a th:href="@{userHtml(user='logout')}">注销</a></div>
           <div class="gohome">
@@ -52,7 +51,7 @@
               <td th:text="${item.orderPrice}">90.00</td>
               <td th:text="${item.orderCount}">88</td>
               <td><a href="" class="send">等待发货</a></td>
-              <td><a href="">查看详情</a></td>
+              <td><a th:href="@{details}">查看详情</a></td>
             </tr>
           </tbody>
         </table>
@@ -122,4 +121,5 @@
       </div>
     </div>
   </body>
+  <script th:src="@{static/script/order.js}"></script>
 </html>

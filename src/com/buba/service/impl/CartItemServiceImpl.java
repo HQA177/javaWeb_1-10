@@ -8,9 +8,7 @@ import com.buba.entity.User;
 import com.buba.service.CartItemService;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CartItemServiceImpl implements CartItemService {
     private CartItemDao cartItemDao = new CartItemDaoImpl();
