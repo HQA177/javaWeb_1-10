@@ -9,11 +9,14 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,8 +66,18 @@ public class BookServlet extends ViewBaseServlet{
         System.out.println("前"+id);
         int i = bookService.delBook(Integer.parseInt(id));
         System.out.println("后"+i);
-        this.librarian(req,resp);
-        processTemplate("/pages/manager/book_manager",req,resp);
+
+        Double aDouble = bookService.maxPrice();
+        String pageNo = req.getParameter("pageNo");
+
+
+        List<Book> list = bookService.books(0,(int)(aDouble +1),Integer.parseInt(pageNo));
+        System.out.println(list);
+        if (list.isEmpty()){
+            resp.sendRedirect("bookHtml?user=book_manager&pageNo="+(Integer.valueOf(pageNo)-1));
+        }else {
+            resp.sendRedirect("bookHtml?user=book_manager&pageNo="+pageNo);
+        }
     }
 
     // 后台管理页面跳转修改页面获取要修改的数据
@@ -87,7 +100,7 @@ public class BookServlet extends ViewBaseServlet{
         Book book = new Book();
         book.setBookId(Integer.parseInt(attribute.toString()));
         book.setBookName(name);
-        book.setPrice(Double.valueOf(price));
+        book.setPrice(new BigDecimal(price));
         book.setAuthor(author);
         book.setSales(Integer.parseInt(sales));
         book.setStock(Integer.parseInt(stock));
@@ -124,7 +137,7 @@ public class BookServlet extends ViewBaseServlet{
                 sqlPath = "static/uploads/" + imgName;
                 book.setImgPath(sqlPath);
                 book.setBookName(items.get(1).getString("UTF-8"));
-                book.setPrice(Double.valueOf(items.get(2).getString("UTF-8")));
+                book.setPrice(new BigDecimal(items.get(2).getString("UTF-8")));
                 book.setAuthor(items.get(3).getString("UTF-8"));
                 book.setSales(Integer.valueOf(items.get(4).getString("UTF-8")));
                 book.setStock(Integer.valueOf(items.get(5).getString("UTF-8")));

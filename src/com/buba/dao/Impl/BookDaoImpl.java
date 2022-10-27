@@ -41,7 +41,6 @@ public class BookDaoImpl implements BookDao {
     @Override
     public Book skipEditBook(Integer id) {
         String sql = "select * from t_book where book_id = ?";
-//        int book = jdbc.queryForObject(sql,Integer.class,id);
         Book book = jdbc.queryForObject(sql,new BeanPropertyRowMapper<>(Book.class),id);
         return book;
     }

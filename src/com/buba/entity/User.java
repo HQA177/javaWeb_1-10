@@ -17,7 +17,13 @@ public class User {
     private Date updateTime;
     private String comment;
 
+    private Cart cart;
+
     public User() {
+    }
+
+    public User(String userName) {
+        this.userName = userName;
     }
 
     public User(String userName, String userPassword, String email) {
@@ -90,6 +96,14 @@ public class User {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override

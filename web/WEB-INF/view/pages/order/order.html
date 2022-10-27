@@ -9,20 +9,21 @@
     <link rel="stylesheet" th:href="@{static/css/cart.css}" />
     <link rel="stylesheet" th:href="@{static/css/bookManger.css}" />
     <link rel="stylesheet" th:href="@{static/css/orderManger.css}" />
+    <script th:src="@{static/script/order.js}"></script>
   </head>
   <body>
     <div class="header">
       <div class="w">
         <div class="header-left">
-          <a href="../../index.html">
+          <a th:href="@{index}">
             <img th:src="@{static/img/logo.gif}" alt=""
-          /></a>
+            /></a>
           <h1>我的订单</h1>
         </div>
         <div class="header-right">
           <h3>欢迎<span>会员</span>光临Deer书城</h3>
-          <div class="order"><a th:href="@{jumpHtml(jump='order')}">我的订单</a></div>
-          <div class="destory"><a th:href="@{index}">注销</a></div>
+<!--          <div class="order"><a th:href="@{jumpHtml(jump='order')}">我的订单</a></div>-->
+          <div class="destory"><a th:href="@{userHtml(user='logout')}">注销</a></div>
           <div class="gohome">
             <a th:href="@{index}">返回</a>
           </div>
@@ -43,55 +44,47 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>12354456895</td>
-              <td>
+            <tr th:each="item : ${orderList}">
+              <td th:text="${item.orderNumber}">12354456895</td>
+              <td th:text="${item.createTime}">
                 2015.04.23
               </td>
-              <td>90.00</td>
-              <td>88</td>
+              <td th:text="${item.orderPrice}">90.00</td>
+              <td th:text="${item.orderCount}">88</td>
               <td><a href="" class="send">等待发货</a></td>
-              <td><a href="">查看详情</a></td>
-            </tr>
-            <tr>
-              <td>12354456895</td>
-              <td>
-                2015.04.23
-              </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">未发货</a></td>
-              <td><a href="">查看详情</a></td>
-            </tr>
-            <tr>
-              <td>12354456895</td>
-              <td>
-                2015.04.23
-              </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">已发货</a></td>
               <td><a href="">查看详情</a></td>
             </tr>
           </tbody>
         </table>
         <div class="footer">
           <div class="footer-right">
-            <div>首页</div>
-            <div>上一页</div>
-            <ul>
-              <li class="active">1</li>
-              <li>2</li>
-              <li>3</li>
+            <!--    disabled 按钮禁用 条件成立则禁用-->
+            <input type="button" value="首 页" class="btn" th:onclick="|page(1)|" th:disabled="${session.orderPageNo==1}">
+            <input type="button" value="上一页" class="btn" th:onclick="|page(${session.orderPageNo-1})|" th:disabled="${session.orderPageNo==1}">
+            <ul style="margin-right: 10px">
+
+              <!--            each     循环总页数-->
+              <!--            text     总页数 == li的个数-->
+              <!--            class    当前页 == 这一项 添加绿色字体-->
+              <!--            onclick  点击调用 js函数-->
+              <li
+                      style="display: none;width: 20px"
+                      th:each="item:${session.orderLi}"
+                      th:text="${item}"
+                      th:class="${session.orderPageNo == item ? 'active' : ''}"
+                      th:onclick="|page(${item})|"
+              >
+              </li>
             </ul>
-            <div>下一页</div>
-            <div>末页</div>
-            <span>共10页</span>
-            <span>30条记录</span>
+            <input type="button" value="下一页" class="btn" th:onclick="|page(${session.orderPageNo+1})|" th:disabled="${session.orderPageNo==session.orderPageCount}">
+            <input type="button" value="尾 页" class="btn" th:onclick="|page(${session.orderPageCount})|" th:disabled="${session.orderPageNo==session.orderPageCount}">
+            <span>共<e class="e" th:text="${session.orderPageCount}">10</e>页</span>
+            <span th:text="|${session.orderCount}条记录|">30条记录</span>
             <span>到第</span>
-            <input type="text" />
+            <input type="text" id="tz">
             <span>页</span>
-            <button>确定</button>
+            <input type="hidden" th:value="${session.orderPageCount}" id="yc">
+            <button id="btn2">确定</button>
           </div>
         </div>
       </div>

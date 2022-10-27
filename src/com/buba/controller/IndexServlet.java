@@ -25,6 +25,8 @@ public class IndexServlet extends ViewBaseServlet {
         HttpSession session = req.getSession();
         String min = req.getParameter("min");
         String max = req.getParameter("max");
+        System.out.println("开始min："+min);
+        System.out.println("开始max："+max);
         double maxPrice = bookService.maxPrice();
         if (min != null && max != null){
             session.setAttribute("min",min);
@@ -37,7 +39,7 @@ public class IndexServlet extends ViewBaseServlet {
     }
 
     public void findBooks(Integer min, Integer max ,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer pageNo = 1;
+        int pageNo = 1;
         String pageNoStr = req.getParameter("pageNo");
         if (!StringUtils.isEmpty(pageNoStr)){
             pageNo = Integer.parseInt(pageNoStr);
@@ -48,6 +50,7 @@ public class IndexServlet extends ViewBaseServlet {
 
         // 总记录条数
         int bookCount = bookService.getBookCount(min,max);
+        System.out.println("总记录条数"+bookCount);
 //        int b = (int) bookCount;
         // 总页数
         int pageCount = (bookCount+10-1)/10;
@@ -61,8 +64,8 @@ public class IndexServlet extends ViewBaseServlet {
          * 总记录条数     总页数
          * 1             1
          * 10            1
-         * 16            3
-         * bookCount     (bookCount+10-1)/5
+         * 16            2
+         * bookCount     (bookCount+10-1)/10
          * */
 
         session.setAttribute("pageCount",pageCount);

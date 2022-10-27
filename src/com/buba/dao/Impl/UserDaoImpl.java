@@ -1,8 +1,10 @@
 package com.buba.dao.Impl;
 
 import com.buba.dao.UserDao;
+import com.buba.entity.Book;
 import com.buba.entity.User;
 import com.buba.utils.JDBCUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -25,6 +27,13 @@ public class UserDaoImpl implements UserDao {
     public int login(String userName, String userPassword) {
         String sql = "select count(*) from t_user where user_name = ? and user_password = ?";
         return jdbc.queryForObject(sql,Integer.class,userName,userPassword);
+    }
+
+    // 第二种登录
+    @Override
+    public User loginPro(String userName, String userPassword) {
+        String sql = "select * from t_user where user_name = ? and user_password = ?";
+        return jdbc.queryForObject(sql,new BeanPropertyRowMapper<>(User.class),userName,userPassword);
 //         data;
     }
 

@@ -1,10 +1,12 @@
 package com.buba.entity;
 
+import java.math.BigDecimal;
+
 public class Book {
     private Integer bookId;  // 图书id
     private String bookName; // 书名
     private String author;   // 作者
-    private Double price;    // 价格
+    private BigDecimal price;    // 价格
     private Integer sales;   // 销量
     private Integer stock;   // 库存
     private String imgPath; // 图片地址
@@ -12,7 +14,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(String bookName, Double price, String author, Integer sales, Integer stock) {
+    public Book(Integer bookId) {
+        this.bookId = bookId;
+    }
+
+    public Book(String bookName, BigDecimal price, String author, Integer sales, Integer stock) {
         this.bookName = bookName;
         this.price = price;
         this.author = author;
@@ -20,7 +26,7 @@ public class Book {
         this.stock = stock;
     }
 
-    public Book(Integer bookId, String bookName, String author, Double price, Integer sales, Integer stock, String imgPath) {
+    public Book(Integer bookId, String bookName, String author, BigDecimal price, Integer sales, Integer stock, String imgPath) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.author = author;
@@ -53,11 +59,11 @@ public class Book {
         this.author = author;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

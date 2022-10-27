@@ -1,7 +1,10 @@
 package com.buba.controller;
 
+import com.buba.entity.Cart;
 import com.buba.entity.User;
+import com.buba.service.CartItemService;
 import com.buba.service.UserService;
+import com.buba.service.impl.CartItemServiceImpl;
 import com.buba.service.impl.UserServiceImpl;
 import org.springframework.util.DigestUtils;
 
@@ -13,6 +16,7 @@ import java.io.IOException;
 
 public class UserServlet extends ViewBaseServlet{
     private UserService userService = new UserServiceImpl();
+    private CartItemService cartItemService = new CartItemServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
@@ -45,22 +49,42 @@ public class UserServlet extends ViewBaseServlet{
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+
+         //第一种登录方式
         System.out.println("用户名："+username);
         int i = userService.login(username,(DigestUtils.md5DigestAsHex((password).getBytes())));
         System.out.println("密码："+password);
         System.out.println(i);
         if (i == 1){
+            User user = userService.loginPro(username,(DigestUtils.md5DigestAsHex((password).getBytes())));
             HttpSession session = req.getSession();
             session.setAttribute("username",username);
+            Cart cart = cartItemService.getCart(user);
+            user.setCart(cart);
+            session.setAttribute("currUser",user);
             // 内部转发  一次请求和响应
-//            req.getRequestDispatcher("index").forward(req,resp);
             // 重定向，两次请求和响应
             resp.sendRedirect("index");
-//            processTemplate("index",req,resp);
         }else {
             resp.getWriter().write(""+i);
-//            processTemplate("/pages/user/login",req,resp);
         }
+
+//        // 第二种登陆方式
+//        System.out.println(user);
+//        HttpSession session = req.getSession();
+//        if (user != null){
+//
+//            session.setAttribute("username",username);
+//            // 内部转发  一次请求和响应
+//            // 重定向，两次请求和响应
+//            Cart cart = cartItemService.getCart(user);
+//            user.setCart(cart);
+//            session.setAttribute("currUser",user);
+//            resp.sendRedirect("index");
+//        }else {
+//            resp.getWriter().write(""+0);
+//        }
+//        processTemplate("/pages/user/login",req,resp);
     }
 
     // 注册
@@ -71,10 +95,7 @@ public class UserServlet extends ViewBaseServlet{
         userService.addUserDao(new User(name,(DigestUtils.md5DigestAsHex((password).getBytes())),email));
         HttpSession session = req.getSession();
         session.setAttribute("username",name);
-//        this.findUserByName(req,resp);
-//        processTemplate("/pages/user/register_success",req,resp);
         processTemplate("/pages/user/login",req,resp);
-//        processTemplate("index",req,resp);
     }
 
     // 查询是否存在用户名

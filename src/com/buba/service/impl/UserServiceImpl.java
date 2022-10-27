@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User loginPro(String userName, String userPassword) {
+        return userDao.loginPro(userName,userPassword);
+    }
+
+    @Override
     public int findUserByName(String userName) {
         return userDao.findUserByName(userName);
     }

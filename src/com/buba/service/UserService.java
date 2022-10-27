@@ -9,6 +9,9 @@ public interface UserService {
     // 查询,通过用户名和密码在数据库查询是否存在该用户
     int login(String userName, String userPassword);
 
+    // 第二种登录方式
+    User loginPro(String userName, String userPassword);
+
     // 查询,通过用户名在数据库查询是否存在该用户
     int findUserByName(String userName);
 }
