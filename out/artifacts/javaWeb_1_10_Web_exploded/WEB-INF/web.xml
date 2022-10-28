@@ -74,6 +74,16 @@
         <url-pattern>/orderHtml</url-pattern>
     </servlet-mapping>
 
+    <!--    订单详情-->
+    <servlet>
+        <servlet-name>orderItemServlet</servlet-name>
+        <servlet-class>com.buba.controller.OrderItemServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>orderItemServlet</servlet-name>
+        <url-pattern>/orderItemHtml</url-pattern>
+    </servlet-mapping>
+
 <!--    过滤器-->
     <filter>
         <filter-name>filter</filter-name>

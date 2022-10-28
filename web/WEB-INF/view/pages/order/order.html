@@ -51,7 +51,7 @@
               <td th:text="${item.orderPrice}">90.00</td>
               <td th:text="${item.orderCount}">88</td>
               <td><a href="" class="send">等待发货</a></td>
-              <td><a th:href="@{details}">查看详情</a></td>
+              <td><a th:href="@{orderItemHtml(orderItem='detailsPage',orderId=${item.orderId})}">查看详情</a></td>
             </tr>
           </tbody>
         </table>

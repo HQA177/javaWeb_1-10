@@ -10,4 +10,10 @@ public interface OrderItemService {
 
     // 渲染订单详情页面
     List<OrderItem> detailsPage(Integer id);
+
+    // 退款   删除order中的orderId
+    int orderRefund(Integer id);
+
+    // 退款   删除orderItem中的orderId
+    int orderItemRefund(Integer id);
 }

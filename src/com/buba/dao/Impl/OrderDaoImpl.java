@@ -31,10 +31,17 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> queryAllOrder() {
-        String sql = "select * from t_order";
-        List<Order> list = jdbc.query(sql,new BeanPropertyRowMapper<>(Order.class));
+    public List<Order> queryAllOrder(Integer pageNo) {
+        String sql = "select * from t_order limit ?,5";
+        List<Order> list = jdbc.query(sql,new BeanPropertyRowMapper<>(Order.class),(pageNo-1)*5);
         return list;
+    }
+
+    @Override
+    public int queryAllOrder() {
+        String sql = "select count(*) from t_order";
+        Integer integer = jdbc.queryForObject(sql, Integer.class);
+        return integer;
     }
 
     @Override

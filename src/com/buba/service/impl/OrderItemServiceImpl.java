@@ -18,4 +18,14 @@ public class OrderItemServiceImpl implements OrderItemService {
     public List<OrderItem> detailsPage(Integer id) {
         return orderItemDao.detailsPage(id);
     }
+
+    @Override
+    public int orderRefund(Integer id) {
+        return orderItemDao.orderRefund(id);
+    }
+
+    @Override
+    public int orderItemRefund(Integer id) {
+        return orderItemDao.orderItemRefund(id);
+    }
 }

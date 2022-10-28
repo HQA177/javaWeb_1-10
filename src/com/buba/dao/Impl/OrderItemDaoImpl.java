@@ -23,4 +23,18 @@ public class OrderItemDaoImpl implements OrderItemDao {
         List<OrderItem> query = jdbc.query(sql, new BeanPropertyRowMapper<>(OrderItem.class), id);
         return query;
     }
+
+    @Override
+    public int orderRefund(Integer id) {
+        String sql = "delete from t_order where order_id = ?";
+        int update = jdbc.update(sql, id);
+        return update;
+    }
+
+    @Override
+    public int orderItemRefund(Integer id) {
+        String sql = "delete from t_order_detail where order_id = ?";
+        int update = jdbc.update(sql, id);
+        return update;
+    }
 }

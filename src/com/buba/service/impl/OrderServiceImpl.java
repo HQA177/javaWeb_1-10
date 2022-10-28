@@ -27,7 +27,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> queryAllOrder() {
+    public List<Order> queryAllOrder(Integer pageNo) {
+        return orderDao.queryAllOrder(pageNo);
+    }
+
+    @Override
+    public int queryAllOrder() {
         return orderDao.queryAllOrder();
     }
 

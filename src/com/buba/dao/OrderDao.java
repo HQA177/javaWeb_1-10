@@ -15,8 +15,13 @@ public interface OrderDao {
     int getOrderCount(Integer id);
 
     // 后台管理查询所有订单
-    List<Order> queryAllOrder();
+    List<Order> queryAllOrder(Integer pageNo);
+
+    // 查询后台订单总记录条数
+    int queryAllOrder();
 
     // 通过 number 查询 order_id
     int queryOrderId(String num);
+
+
 }

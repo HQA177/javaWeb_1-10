@@ -39,7 +39,30 @@ public class OrderServlet extends ViewBaseServlet{
 
     // 后台管理查询所有订单
     protected void queryAllOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Order> list = orderService.queryAllOrder();
+        HttpSession session = req.getSession();
+
+        Integer pageNo = 1;
+        String pageNoStr = req.getParameter("orderPageNo");
+        if (!StringUtils.isEmpty(pageNoStr)){
+            pageNo = Integer.parseInt(pageNoStr);
+        }
+        List<Order> list = orderService.queryAllOrder(pageNo);
+        // 总记录条数
+        int orderCount = orderService.queryAllOrder();
+        int b = (int) orderCount;
+        // 总页数
+        int orderPageCount = (orderCount+5-1)/5;
+//        int p = (int) pageCount;
+        ArrayList<Object> orderLi = new ArrayList<>();
+        for (int i = 0; i < orderPageCount; i++) {
+            orderLi.add(i+1);
+        }
+        session.setAttribute("orderPageNo",pageNo);
+        session.setAttribute("orderLi",orderLi);
+
+        session.setAttribute("orderPageCount",orderPageCount);
+        // 总数量取整
+        session.setAttribute("orderCount",orderCount);
         req.setAttribute("orders",list);
         processTemplate("pages/manager/order_manager",req,resp);
     }
@@ -78,7 +101,6 @@ public class OrderServlet extends ViewBaseServlet{
         if (!StringUtils.isEmpty(pageNoStr)){
             orderPageNo = Integer.parseInt(pageNoStr);
         }
-
         HttpSession session = req.getSession();
         User user =(User) session.getAttribute("currUser");
 
