@@ -1,25 +1,18 @@
 package com.buba.controller;
 
-import com.alibaba.druid.util.StringUtils;
-import com.buba.entity.Order;
 import com.buba.entity.OrderItem;
-import com.buba.entity.User;
 import com.buba.service.OrderItemService;
-import com.buba.service.OrderService;
 import com.buba.service.impl.OrderItemServiceImpl;
-import com.buba.service.impl.OrderServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderItemServlet extends ViewBaseServlet{
     private OrderItemService orderItemService = new OrderItemServiceImpl();
-    private OrderService orderService = new OrderServiceImpl();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("orderItem").equals("detailsPage")){
