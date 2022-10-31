@@ -41,7 +41,7 @@ public class OrderServlet extends ViewBaseServlet{
     protected void queryAllOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        Integer pageNo = 1;
+        int pageNo = 1;
         String pageNoStr = req.getParameter("orderPageNo");
         if (!StringUtils.isEmpty(pageNoStr)){
             pageNo = Integer.parseInt(pageNoStr);
@@ -49,7 +49,6 @@ public class OrderServlet extends ViewBaseServlet{
         List<Order> list = orderService.queryAllOrder(pageNo);
         // 总记录条数
         int orderCount = orderService.queryAllOrder();
-        int b = (int) orderCount;
         // 总页数
         int orderPageCount = (orderCount+5-1)/5;
 //        int p = (int) pageCount;
@@ -107,7 +106,6 @@ public class OrderServlet extends ViewBaseServlet{
 
         // 总记录条数
         int orderCount = orderService.getOrderCount(user.getUserId());
-        int b = (int) orderCount;
         // 总页数
         int orderPageCount = (orderCount+5-1)/5;
 //        int p = (int) pageCount;
