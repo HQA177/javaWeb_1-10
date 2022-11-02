@@ -23,4 +23,8 @@ public interface OrderService {
 
     // 通过 number 查询 order_id
     int queryOrderId(String num);
+
+
+    // 后台管理修改订单状态
+    int modifyState(Order order, Integer id);
 }

@@ -9,9 +9,9 @@ function update(id,bookCount){
     let an = document.getElementById("an");
     let cd = document.querySelectorAll(".cd");
     an.onclick = function (){
-    if (cd.length == 0){
-    alert("没有要结的账！")
-}else {
-    window.location.href = "orderHtml?order=createOrder";
-}
+        if (cd.length == 0){
+        alert("没有要结的账！")
+        }else {
+            window.location.href = "orderHtml?order=createOrder";
+        }
 }

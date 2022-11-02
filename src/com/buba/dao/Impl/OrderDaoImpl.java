@@ -50,4 +50,11 @@ public class OrderDaoImpl implements OrderDao {
         Integer i = jdbc.queryForObject(sql, Integer.class, num);
         return i;
     }
+
+    @Override
+    public int modifyState(Order order, Integer id) {
+        String sql = "update t_order set order_status = ? where order_id = ?";
+        int i = jdbc.update(sql,order.getOrderStatus(),id);
+        return i;
+    }
 }

@@ -34,6 +34,14 @@ public class OrderServlet extends ViewBaseServlet{
         if (req.getParameter("order").equals("queryAllOrder")){
             this.queryAllOrder(req,resp);
         }
+        // 跳转后台管理订单详情
+        if (req.getParameter("order").equals("viewDetails")){
+            this.viewDetails(req,resp);
+        }
+        // 订单详情修改
+        if (req.getParameter("order").equals("modifyState")){
+            this.modifyState(req,resp);
+        }
     }
 
 
@@ -70,6 +78,7 @@ public class OrderServlet extends ViewBaseServlet{
     public void createOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user =(User) session.getAttribute("currUser");
+        System.out.println("dayinUSER:"+user);
         // 随机生成的订单编号
         String num = testUid();
         session.setAttribute("num",num);
@@ -121,6 +130,28 @@ public class OrderServlet extends ViewBaseServlet{
         session.setAttribute("orderCount",orderCount);
         List<Order> orders = orderService.queryOrder(user.getUserId(), orderPageNo);
         req.setAttribute("orderList",orders);
+    }
+
+    // 后台管理查看详情渲染页面
+    public void viewDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        String num = req.getParameter("num");
+        session.setAttribute("num",num);
+        List<OrderItem> orderItems = orderItemService.detailsPage(Integer.parseInt(num));
+        req.setAttribute("items",orderItems);
+        processTemplate("pages/manager/order_details",req,resp);
+    }
+
+    // 后台管理修改订单状态
+    public void modifyState(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String num = req.getParameter("num");
+        System.out.println("num打印："+num);
+        String status = req.getParameter("status");
+        req.setAttribute("status",status);
+        Order order = new Order();
+        order.setOrderStatus(Integer.parseInt(status));
+        orderService.modifyState(order,Integer.parseInt(num));
+        this.viewDetails(req,resp);
     }
 
     //生成订单编号
